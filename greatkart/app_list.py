@@ -1,3 +1,4 @@
 APP_LIST = {
-    'category': 'category/'
+    'category': 'category/',
+    'accounts': 'accounts/',
 }

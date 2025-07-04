@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 import os
+from django.utils.translation import gettext_lazy as _
 
 def _upload_to(instance, filename):
     app_label = instance._meta.app_label
@@ -12,8 +13,8 @@ def _upload_to(instance, filename):
 
 class Category(models.Model):
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
     name = models.CharField(max_length=100, unique=True)
     slug = models.CharField(max_length=100, unique=True)
