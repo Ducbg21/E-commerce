@@ -40,6 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+MY_APPS = []
+from .app_list import APP_LIST
+
+for app in APP_LIST:
+    MY_APPS.append(app)
+
+INSTALLED_APPS.extend(MY_APPS)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,12 +60,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'greatkart.urls'
 
+TEMPLATE_DIR = [
+    os.path.join(BASE_DIR, 'templates'),
+]
+
+for app in APP_LIST:
+    TEMPLATE_DIR.append(os.path.join(BASE_DIR, app, 'templates'))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
-        ],
+        'DIRS': TEMPLATE_DIR,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +136,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'greatkart', 'static'),
 ]
 
+for app in APP_LIST:
+    STATICFILES_DIRS.append(os.path.join(BASE_DIR, app, 'static'))
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+# Media files
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
